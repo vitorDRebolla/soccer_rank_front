@@ -49,7 +49,11 @@ export default {
             }
           } : team;
         }).sort((team_one, team_two) => {
+          return team_two.team_info.goals - team_one.team_info.goals;
+        }).sort((team_one, team_two) => {
           return team_two.team_info.goal_difference - team_one.team_info.goal_difference;
+        }).sort((team_one, team_two) => {
+          return team_two.team_info.wins - team_one.team_info.wins;
         }).sort((team_one, team_two) => {
           return team_two.team_info.points - team_one.team_info.points;
         });

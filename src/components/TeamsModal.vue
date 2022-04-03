@@ -4,14 +4,14 @@
          tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="p-2" v-if="missingTeam">
+          <div class="p-2" v-if="missingData">
             <div class="alert alert-warning" role="alert">
-              Você deve escolher os dois times para poder salvar!
+              Preencha os campos com valores válidos para salvar!
             </div>
           </div>
           <div class="modal-header">
             <h5 class="modal-title">Confronto</h5>
-            <button v-if="!saving" aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button" @click="missingTeam = false"/>
+            <button v-if="!saving" aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button" @click="missingData = false"/>
           </div>
           <div class="modal-body">
             <div class="d-flex justify-content-center gap-3">
@@ -23,7 +23,7 @@
                       {{ team.name }}
                     </option>
                   </select>
-                  <input class="form-control" style="width: 50px" type="text" v-model="homeTeamScore">
+                  <input class="form-control" style="width: 50px" type="text" v-model.number="homeTeamScore">
                 </div>
               </div>
               <div class="d-flex justify-content-center align-items-end">
@@ -32,7 +32,7 @@
               <div>
                 <span>Visitante</span>
                 <div class="d-flex gap-2 mt-2">
-                  <input class="form-control" style="width: 50px" type="text" v-model="visitorTeamScore">
+                  <input class="form-control" style="width: 50px" type="text" v-model.number="visitorTeamScore">
                   <select class="form-select" id="visitor-team" v-model="visitorTeam">
                     <option :value="team.id" v-for="team in visitorAvailableTeams" :key="`visitor-team-${team.id}`">
                       {{ team.name }}
@@ -43,10 +43,9 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button v-if="!saving" class="btn btn-secondary" data-bs-dismiss="modal" @click="missingTeam = false">Fechar</button>
-            <button class="btn btn-primary" @click="save">
-              {{ saving ? 'Salvando...' : 'Salvar' }}
-            </button>
+            <button v-if="!saving" class="btn btn-secondary" data-bs-dismiss="modal" @click="missingData = false">Fechar</button>
+            <button v-if="!saving" class="btn btn-primary" @click="save">Salvar</button>
+            <button v-if="saving" class="btn btn-primary" disabled>Salvando...</button>
           </div>
         </div>
       </div>
@@ -84,19 +83,22 @@ export default {
       visitorTeam: 0,
       visitorTeamScore: 0,
       saving: false,
-      missingTeam: false,
+      missingData: false,
     }
   },
   methods: {
     save() {
+      this.missingData = false;
+
       if(this.saving) {
         return;
       }
 
       if(!this.canSave()) {
-        this.missingTeam = true;
+        this.missingData = true;
         return;
       }
+
       this.saving = true;
       let data = this.buildData();
       this.$axios.post(`/api/game-result`, data).then(() => {
@@ -111,7 +113,12 @@ export default {
       })
     },
     canSave() {
-      return this.homeTeam !== 0 && this.visitorTeam !== 0;
+      return this.homeTeam !== 0 &&
+          this.visitorTeam !== 0 &&
+          Number.isInteger(this.homeTeamScore) &&
+          Number.isInteger(this.visitorTeamScore) &&
+          (this.homeTeamScore >= 0 && this.homeTeamScore <= 100) &&
+          (this.visitorTeamScore >= 0 && this.visitorTeamScore <= 100);
     },
     buildData() {
       return {
