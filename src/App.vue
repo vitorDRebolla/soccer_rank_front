@@ -1,14 +1,14 @@
 <template>
-  <TeamsTable/>
+  <TeamsIndex/>
 </template>
 
 <script>
-import TeamsTable from './components/TeamsTable.vue'
+import TeamsIndex from './components/TeamsIndex.vue'
 
 export default {
   name: 'App',
   components: {
-    TeamsTable
+    TeamsIndex
   }
 }
 </script>
