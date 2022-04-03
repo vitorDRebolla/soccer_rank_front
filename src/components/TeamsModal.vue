@@ -4,9 +4,14 @@
          tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
+          <div class="p-2" v-if="missingTeam">
+            <div class="alert alert-warning" role="alert">
+              Você deve escolher os dois times para poder salvar!
+            </div>
+          </div>
           <div class="modal-header">
             <h5 class="modal-title">Confronto</h5>
-            <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+            <button v-if="!saving" aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button" @click="missingTeam = false"/>
           </div>
           <div class="modal-body">
             <div class="d-flex justify-content-center gap-3">
@@ -18,7 +23,7 @@
                       {{ team.name }}
                     </option>
                   </select>
-                  <input class="form-control" style="width: 50px" type="text" v-model="visitorTeamScore">
+                  <input class="form-control" style="width: 50px" type="text" v-model="homeTeamScore">
                 </div>
               </div>
               <div class="d-flex justify-content-center align-items-end">
@@ -38,8 +43,10 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-            <button class="btn btn-primary" @click="save">Salvar</button>
+            <button v-if="!saving" class="btn btn-secondary" data-bs-dismiss="modal" @click="missingTeam = false">Fechar</button>
+            <button class="btn btn-primary" @click="save">
+              {{ saving ? 'Salvando...' : 'Salvar' }}
+            </button>
           </div>
         </div>
       </div>
@@ -62,6 +69,12 @@ export default {
     },
     visitorAvailableTeams() {
       return this.teams.filter((team) => team.id !== this.homeTeam )
+    },
+    selectedHomeTeam() {
+      return this.teams.find(team => team.id === this.homeTeam);
+    },
+    selectedVisitorTeam() {
+      return this.teams.find(team => team.id === this.visitorTeam);
     }
   },
   data() {
@@ -70,11 +83,43 @@ export default {
       homeTeamScore: 0,
       visitorTeam: 0,
       visitorTeamScore: 0,
+      saving: false,
+      missingTeam: false,
     }
   },
   methods: {
     save() {
+      if(this.saving) {
+        return;
+      }
 
+      if(!this.canSave()) {
+        this.missingTeam = true;
+        return;
+      }
+      this.saving = true;
+      let data = this.buildData();
+      this.$axios.post(`/api/game-result`, data).then(() => {
+        this.$emit('game-result-saved');
+      }).then(() => {
+        this.homeTeam = 0;
+        this.homeTeamScore = 0;
+        this.visitorTeam = 0;
+        this.visitorTeamScore = 0;
+      }).then(() => {
+        this.saving = false;
+      })
+    },
+    canSave() {
+      return this.homeTeam !== 0 && this.visitorTeam !== 0;
+    },
+    buildData() {
+      return {
+        homeTeamInfo: this.selectedHomeTeam.team_info,
+        visitorTeamInfo: this.selectedVisitorTeam.team_info,
+        homeTeamScore: this.homeTeamScore,
+        visitorTeamScore: this.visitorTeamScore
+      }
     }
   }
 }

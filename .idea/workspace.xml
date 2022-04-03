@@ -2,11 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3f16fe1b-d7d2-4638-be03-5ef6717b461b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/TeamsIndex.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/node_modules/.cache/eslint/650dfdc1.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.cache/eslint/650dfdc1.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/TeamsTable.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TeamsIndex.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TeamsIndex.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TeamsModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TeamsModal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TeamsTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TeamsTable.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +40,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../turnoverbnb-web" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="editing.templates" />
@@ -55,7 +59,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1648935012370</updated>
-      <workItem from="1648935016423" duration="13449000" />
+      <workItem from="1648935016423" duration="22562000" />
     </task>
     <servers />
   </component>

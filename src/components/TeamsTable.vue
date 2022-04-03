@@ -16,35 +16,48 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="(team, teamIndex) in teams" :key="team.id">
+      <tr
+          v-for="(team, teamIndex) in teams" :key="team.id"
+          :class="[{
+              'bg-first': teamIndex + 1 === 1,
+              'bg-libertadores': teamIndex + 1 > 1 && teamIndex + 1 < 8,
+              'bg-SA': teamIndex + 1 > 7 && teamIndex + 1 < 15,
+              'bg-relegated': teamIndex + 1 > 16 && teamIndex + 1 < 21
+          }]"
+      >
         <td>
-          {{ teamIndex }}
+          <span class="fw-bold">
+             {{ teamIndex + 1 }}
+          </span>
+        </td>
+        <td class="text-start">
+          <span class="fw-bold">
+            {{ team.name }}
+          </span>
         </td>
         <td>
-          {{ team.name }}</td>
-        <td>
-          <span class="fw-bold">{{ team.teamInfo.points }}</span>
+          <span class="fw-bold">{{ team.team_info.points }}</span>
         </td>
         <td>
-          {{ team.teamInfo.games }}
+          {{ team.team_info.games }}
         </td>
         <td>
-          {{ team.teamInfo.wins }}
+          {{ team.team_info.wins }}
         </td>
         <td>
-          {{ team.teamInfo.draws }}
+          {{ team.team_info.draws }}
         </td>
         <td>
-          {{ team.teamInfo.loses }}
+          {{ team.team_info.loses }}
         </td>
         <td>
-          {{ team.teamInfo.goals }}
+          {{ team.team_info.goals }}
         </td>
         <td>
-          {{ team.teamInfo.goals_against }}
+          {{ team.team_info.goals_against }}
         </td>
         <td>
-          {{ team.teamInfo.goal_difference }}
+          {{ team.team_info.goal_difference }}
         </td>
       </tr>
       </tbody>
@@ -65,5 +78,19 @@ export default {
 </script>
 
 <style scoped>
+.bg-first {
+  background-color: #ccffcc;
+}
 
+.bg-libertadores {
+  background-color: #c0dfff;
+}
+
+.bg-SA {
+  background-color: #ffffbb;
+}
+
+.bg-relegated {
+  background-color: #ffadad;
+}
 </style>
