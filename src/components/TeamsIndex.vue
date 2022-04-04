@@ -1,9 +1,13 @@
 <template>
-  <div class="container mt-5">
-   <div class="d-flex justify-content-center" v-if="loading">
-     <div class="spinner-border spinner-border-lg" role="status">
-       <span class="visually-hidden">Loading...</span>
-     </div>
+  <div class="container">
+    <div class="d-flex justify-content-center" style="height: 100vh" v-if="loading">
+      <div class="d-flex align-items-center gap-2" style="height: fit-content">
+        <div class="spinner-border spinner-border-lg" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <span class="fw-bold fs-4" style="">Carregando...</span>
+      </div>
+
    </div>
     <div class="d-flex flex-column" v-if="!loading">
       <div class="d-flex justify-content-end">

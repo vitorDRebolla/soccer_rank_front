@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table class="table text-center">
+    <table class="table text-center bg-white rounded">
       <thead>
       <tr>
         <th>Posição</th>
