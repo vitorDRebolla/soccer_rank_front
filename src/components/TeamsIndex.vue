@@ -1,6 +1,11 @@
 <template>
   <div class="container mt-5">
-    <div class="d-flex flex-column">
+   <div class="d-flex justify-content-center" v-if="loading">
+     <div class="spinner-border spinner-border-lg" role="status">
+       <span class="visually-hidden">Loading...</span>
+     </div>
+   </div>
+    <div class="d-flex flex-column" v-if="!loading">
       <div class="d-flex justify-content-end">
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#teamsModal">
           Inserir Confronto
@@ -26,11 +31,13 @@ export default {
   },
   data() {
     return {
-      teams: []
+      teams: [],
+      loading: false,
     }
   },
   methods: {
     getTeams() {
+      this.loading = true;
       this.$axios.get('/api/teams').then(({ data }) => {
         this.teams = data.map((team) => {
           return team.team_info === null ? {
@@ -57,6 +64,8 @@ export default {
         }).sort((team_one, team_two) => {
           return team_two.team_info.points - team_one.team_info.points;
         });
+      }).finally(() => {
+        this.loading = false;
       })
     }
   },
@@ -67,5 +76,8 @@ export default {
 </script>
 
 <style scoped>
-
+.spinner-border-lg {
+  width: 4rem;
+  height: 4rem;
+}
 </style>

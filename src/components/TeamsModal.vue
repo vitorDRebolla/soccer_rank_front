@@ -45,7 +45,10 @@
           <div class="modal-footer">
             <button v-if="!saving" class="btn btn-secondary" data-bs-dismiss="modal" @click="missingData = false">Fechar</button>
             <button v-if="!saving" class="btn btn-primary" @click="save">Salvar</button>
-            <button v-if="saving" class="btn btn-primary" disabled>Salvando...</button>
+            <button v-if="saving" class="btn btn-primary" disabled>
+              <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+              Salvando...
+            </button>
           </div>
         </div>
       </div>
